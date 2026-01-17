@@ -56,5 +56,23 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'role' => 'head',
         ]);
+
+        // Generate 20 Random Students
+        User::factory(20)->create([
+            'role' => 'student',
+        ])->each(function ($user) {
+            \App\Models\StudentProfile::factory()->create([
+                'user_id' => $user->id,
+            ]);
+        });
+
+        // Generate 20 Random Lecturers
+        User::factory(20)->create([
+            'role' => 'lecturer',
+        ])->each(function ($user) {
+            \App\Models\LecturerProfile::factory()->create([
+                'user_id' => $user->id,
+            ]);
+        });
     }
 }
